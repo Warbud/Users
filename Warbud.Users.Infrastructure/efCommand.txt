@@ -1,0 +1,2 @@
+﻿cd *User*Infra*
+dotnet ef migrations add Init -s ../Warbud.Users -c WriteDbContext
