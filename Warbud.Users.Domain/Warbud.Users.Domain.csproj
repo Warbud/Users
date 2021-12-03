@@ -9,7 +9,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Warbud.Shared.Abstraction\Warbud.Shared.Abstraction.csproj" />
+      <ProjectReference Include="..\..\Warbud.Shared\Warbud.Shared.Abstraction\Warbud.Shared.Abstraction.csproj" />
     </ItemGroup>
 
 </Project>
