@@ -2,12 +2,12 @@
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Warbud.Users.Api.Validators;
 using Warbud.Users.Application.Commands.User;
 using Warbud.Users.Application.Commands.WarbudApp;
 using Warbud.Users.Application.Commands.WarbudClaim;
-using Warbud.Users.Validators;
 
-namespace Warbud.Users.Installers
+namespace Warbud.Users.Api.Installers
 {
     public class ValidationInstaller : IInstaller
     {

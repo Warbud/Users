@@ -10,7 +10,7 @@ using Warbud.Users.Application.Commands.WarbudClaim;
 using Warbud.Users.Application.DTO;
 using Warbud.Users.Application.Queries.WarbudClaim;
 
-namespace Warbud.Users.Controllers
+namespace Warbud.Users.Api.Controllers
 {
     public class ClaimController : BaseController
     {

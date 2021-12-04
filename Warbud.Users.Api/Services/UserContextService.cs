@@ -3,7 +3,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Claim = Warbud.Shared.Abstraction.Constants.Claim;
 
-namespace Warbud.Users.Services
+namespace Warbud.Users.Api.Services
 {
     public interface IUserContextService
     {
@@ -22,7 +22,14 @@ namespace Warbud.Users.Services
 
         public ClaimsPrincipal User => _httpContextAccessor.HttpContext?.User;
 
-        public Guid? GetUserId =>
-            User is null ? null : Guid.Parse(User.FindFirst(x => x.Type == Claim.Name.Id)?.Value);
+        public Guid? GetUserId
+        {
+            get
+            {
+                var id = User?.FindFirst(x => x.Type == Claim.Name.Id)?.Value;
+                if (id is null) return null;
+                return Guid.Parse(id);
+            }
+        }
     }
 }

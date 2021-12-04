@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Warbud.Users.Controllers
+namespace Warbud.Users.Api.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]

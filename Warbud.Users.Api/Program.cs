@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Warbud.Users
+namespace Warbud.Users.Api
 {
     public class Program
     {

@@ -5,7 +5,7 @@ using Warbud.Shared.Abstraction.Constants;
 using Warbud.Users.Application.Commands.WarbudClaim;
 using Warbud.Users.Application.Services;
 
-namespace Warbud.Users.Validators
+namespace Warbud.Users.Api.Validators
 {
     public class WarbudClaimInputValidator : AbstractValidator<AddWarbudClaim>
     {

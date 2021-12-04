@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Warbud.Users.Application.Commands.WarbudApp;
 
-namespace Warbud.Users.Validators
+namespace Warbud.Users.Api.Validators
 {
     public class WarbudAppInputValidator : AbstractValidator<AddWarbudApp>
     {

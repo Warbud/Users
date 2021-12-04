@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Warbud.Users.Installers
+namespace Warbud.Users.Api.Installers
 {
     public static class InstallerExtensions
     {

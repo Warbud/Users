@@ -7,13 +7,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Warbud.Shared;
 using Warbud.Shared.Abstraction.Constants;
-using Warbud.Users.Authentication;
+using Warbud.Users.Api.Authentication;
+using Warbud.Users.Api.Services;
 using Warbud.Users.Application;
 using Warbud.Users.Infrastructure;
-using Warbud.Users.Installers;
-using Warbud.Users.Services;
+using Warbud.Users.Api.Installers;
 
-namespace Warbud.Users
+namespace Warbud.Users.Api
 {
     public class Startup
     {

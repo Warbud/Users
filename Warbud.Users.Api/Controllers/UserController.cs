@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Warbud.Shared.Abstraction.Commands;
 using Warbud.Shared.Abstraction.Constants;
 using Warbud.Shared.Abstraction.Queries;
+using Warbud.Users.Api.Exceptions;
+using Warbud.Users.Api.Services;
 using Warbud.Users.Application.Commands.User;
 using Warbud.Users.Application.DTO;
 using Warbud.Users.Application.Queries.User;
-using Warbud.Users.Exceptions;
-using Warbud.Users.Services;
 
-namespace Warbud.Users.Controllers
+namespace Warbud.Users.Api.Controllers
 {
     public class UserController : BaseController
     {

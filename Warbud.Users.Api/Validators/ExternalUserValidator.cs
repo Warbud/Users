@@ -2,7 +2,7 @@
 using Warbud.Users.Application.Commands.User;
 using Warbud.Users.Application.Services;
 
-namespace Warbud.Users.Validators
+namespace Warbud.Users.Api.Validators
 {
     public class UserInputValidator : AbstractValidator<AddUser>
     {

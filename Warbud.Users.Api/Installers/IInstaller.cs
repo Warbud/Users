@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Warbud.Users.Installers
+namespace Warbud.Users.Api.Installers
 {
     public interface IInstaller
     {

@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Warbud.Shared.Options;
-using Warbud.Users.Authentication;
+using Warbud.Users.Api.Authentication;
 
-namespace Warbud.Users.Installers
+namespace Warbud.Users.Api.Installers
 {
     public class JwtInstaller : IInstaller
     {

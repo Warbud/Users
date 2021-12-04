@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Users", "Warbud.Users\Warbud.Users.csproj", "{03C35160-C989-4C28-96A6-20465381E8EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Users.Api", "Warbud.Users.Api\Warbud.Users.Api.csproj", "{03C35160-C989-4C28-96A6-20465381E8EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Users.Application", "Warbud.Users.Application\Warbud.Users.Application.csproj", "{C262F5D6-136E-40BD-A738-BBD36D3AED8F}"
 EndProject

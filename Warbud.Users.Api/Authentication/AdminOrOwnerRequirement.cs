@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using HotChocolate.Resolvers;
 using Warbud.Shared.Abstraction.Constants;
 
-namespace Warbud.Users.Authentication
+namespace Warbud.Users.Api.Authentication
 {
     public class AdminOrOwnerRequirement : IAuthorizationRequirement { }
     

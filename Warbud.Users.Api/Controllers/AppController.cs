@@ -10,7 +10,7 @@ using Warbud.Users.Application.Commands.WarbudApp;
 using Warbud.Users.Application.DTO;
 using Warbud.Users.Application.Queries.WarbudApp;
 
-namespace Warbud.Users.Controllers
+namespace Warbud.Users.Api.Controllers
 {
     public class AppController : BaseController
     {

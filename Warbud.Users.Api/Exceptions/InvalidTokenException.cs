@@ -1,6 +1,6 @@
 ﻿using Warbud.Shared.Abstraction.Exceptions;
 
-namespace Warbud.Users.Exceptions
+namespace Warbud.Users.Api.Exceptions
 {
     public class InvalidTokenException: WarbudException
     {
