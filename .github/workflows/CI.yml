@@ -15,6 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Print 1
+        run: 
+        - dir 
+        - cd ..
+        - dir
+
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.9.0
         with:
@@ -22,6 +28,12 @@ jobs:
       
       - name: Clone shared repository
         run: git clone https://github.com/Nairda015/Warbud.Shared
+
+      - name: Print 2
+        run: 
+        - dir 
+        - cd ..
+        - dir
       
       - name: Restore Packages
         run: dotnet restore
