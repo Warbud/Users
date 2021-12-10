@@ -1,0 +1,30 @@
+name: CI .NET 5
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: [windows-latest, ubuntu-18.04 ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1.9.0
+        with:
+          dotnet-version: 5.0.x 
+      
+      - name: Restore Packages
+        run: dotnet restore
+      
+      - name: Build
+        run: dotnet build -c Release  --no-restore
+      
+      - name: Test
+        run: dotnet test -c Release
