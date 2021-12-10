@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: [windows-latest]
+    runs-on: [windows-latest, ubuntu-18.04 ]
 
     steps:
       - uses: actions/checkout@v2
@@ -19,6 +19,9 @@ jobs:
         uses: actions/setup-dotnet@v1.9.0
         with:
           dotnet-version: 5.0.x 
+      
+      - name: Clone shared repository
+        run: git clone https://github.com/Nairda015/Warbud.Shared
       
       - name: Restore Packages
         run: dotnet restore
