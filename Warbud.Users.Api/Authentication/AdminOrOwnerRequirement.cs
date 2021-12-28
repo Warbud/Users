@@ -1,59 +1,44 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
-using HotChocolate.Language;
 using Microsoft.AspNetCore.Authorization;
-using HotChocolate.Resolvers;
 using Warbud.Shared.Abstraction.Constants;
+using Warbud.Shared.Abstraction.Interfaces;
+using Warbud.Users.Api.Services;
+using Warbud.Users.Domain.Entities;
 
 namespace Warbud.Users.Api.Authentication
 {
     public class AdminOrOwnerRequirement : IAuthorizationRequirement { }
     
-    public class AdminOrOwnerRequirementHandler : AuthorizationHandler<AdminOrOwnerRequirement, IResolverContext>
+    public class AdminOrOwnerRequirementHandler : AuthorizationHandler<AdminOrOwnerRequirement, User>
     {
-        protected override Task HandleRequirementAsync(
-            AuthorizationHandlerContext context, 
+        //TODO: change to service
+        // private readonly IUserContextService _userService;
+        // public AdminOrOwnerRequirementHandler(IUserContextService userService)
+        // {
+        //     _userService = userService;
+        // }
+
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
             AdminOrOwnerRequirement requirement,
-            IResolverContext resource)
+            User resource)
         {
-            
-            // if (resource.Operation.Operation == OperationType.Query)
-            // {
-            //     context.Succeed(requirement);
-            //     return Task.CompletedTask;
-            // }
-            
             var role = context.User.FindFirst(x => x.Type == Claim.Name.Role)?.Value;
-            if (role == Role.Name.Admin)
-            {
-                context.Succeed(requirement);
-                return Task.CompletedTask;
-            }
-
-            var userIdAsString = context.User.FindFirst(x => x.Type == Claim.Name.Id)?.Value;
-            if (string.IsNullOrWhiteSpace(userIdAsString)) return Task.CompletedTask;
-            var userId = Guid.Parse(userIdAsString);
-
-            switch (resource.Selection.SyntaxNode.Arguments[0].Value)
-            {
-                case StringValueNode stringValueNode:
-                {
-                    if (!Guid.TryParse(stringValueNode.Value, out var value))return Task.CompletedTask;
-                    if (value == userId)
-                    {
-                        context.Succeed(requirement);
-                    }
-                    return Task.CompletedTask;
-                }
-                case ObjectValueNode objectValueNode:
-                    var userIdAsObject = objectValueNode.Fields.First(x => x.Name.Value == "id").Value.Value;
-                    if (!Guid.TryParse(userIdAsObject?.ToString(), out var result)) return Task.CompletedTask;
-                    if (result != userId) return Task.CompletedTask;
-                    context.Succeed(requirement);
-                    return Task.CompletedTask;
-            }
+            var id = GetUserId(context);
+            // var role = _userService.UserRole;
+            // var id = _userService.UserId;
+                
+            if (id is null || id == Guid.Empty) return Task.CompletedTask;
+            if (role != Role.Name.Admin && resource.Id.Value != id) return Task.CompletedTask;
+            context.Succeed(requirement);
             return Task.CompletedTask;
+        }
+
+        private static Guid? GetUserId(AuthorizationHandlerContext context)
+        {
+            var id = context.User.FindFirst(x => x.Type == Claim.Name.Id)?.Value;
+            if (id is null) return null;
+            return Guid.Parse(id);
         }
     }
 }

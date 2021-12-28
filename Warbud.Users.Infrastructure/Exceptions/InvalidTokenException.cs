@@ -1,13 +1,13 @@
 ﻿using System.Net;
 using Warbud.Shared.Abstraction.Exceptions;
 
-namespace Warbud.Users.Domain.Exceptions
+namespace Warbud.Users.Infrastructure.Exceptions
 {
-    public class EmptyEmailException : WarbudException
+    public class InvalidTokenException: WarbudException
     {
         public override HttpStatusCode StatusCode => HttpStatusCode.BadRequest;
 
-        public EmptyEmailException() : base("User email cannot be empty")
+        public InvalidTokenException() : base("Invalid token")
         {
         }
     }

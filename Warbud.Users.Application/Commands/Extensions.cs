@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Warbud.Shared.Abstraction.Interfaces;
 using Warbud.Shared.Interfaces;
+using Warbud.Users.Application.DTO;
 
 namespace Warbud.Users.Application.Commands
 {
@@ -11,15 +12,18 @@ namespace Warbud.Users.Application.Commands
             foreach (var prop in input.GetType().GetProperties().Where(x => x.GetValue(input) is not null))
             {
                 var propInfo = entity.GetType().GetProperty(prop.Name);
-                
+
                 if (propInfo.GetValue(entity).GetType().GetInterface(typeof(IValueType<>).Name) is null)
                 {
                     propInfo.SetValue(entity, prop.GetValue(input));
                     continue;
                 }
+
                 propInfo.PropertyType.GetProperty("Value").SetValue(propInfo.GetValue(entity), prop.GetValue(input));
-                
             }
         }
+
+        public static PatchUserDto AsPatchDto(this Domain.Entities.User user)
+            => new(user.FirstName, user.LastName, user.Email);
     }
 }

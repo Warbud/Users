@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentValidation;
-using HotChocolate.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Warbud.Shared.Abstraction.Commands;
 using Warbud.Shared.Abstraction.Constants;
@@ -12,6 +12,8 @@ using Warbud.Users.Application.Queries.WarbudApp;
 
 namespace Warbud.Users.Api.Controllers
 {
+    
+    [Authorize(Roles = Role.Name.Admin)]
     public class AppController : BaseController
     {
         private readonly IQueryDispatcher _queryDispatcher;
@@ -44,7 +46,6 @@ namespace Warbud.Users.Api.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = new []{Role.Name.Admin})]
         public async Task<ActionResult> AddAppAsync([FromBody] AddWarbudApp command)
         {
             await _appValidator.ValidateAndThrowAsync(command);
@@ -53,7 +54,6 @@ namespace Warbud.Users.Api.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = new []{ Role.Name.Admin})]
         public async Task<ActionResult> UpdateAppAsync([FromBody] UpdateWarbudApp command)
         {
             await _commandDispatcher.DispatchAsync(command);
@@ -61,7 +61,6 @@ namespace Warbud.Users.Api.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = new []{ Role.Name.Admin})]
         public async Task<ActionResult> RemoveAppAsync([FromBody] RemoveWarbudApp command)
         {
             await _commandDispatcher.DispatchAsync(command);
