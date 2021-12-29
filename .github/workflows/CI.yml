@@ -9,10 +9,50 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: [windows-latest]
+  build_and_test:
+    # containers must run in Linux based operating systems
+    runs-on: ubuntu-latest
+    # Docker Hub image that `postgres-job` executes in
+    container: node:latest
+
+    # service containers to run with `postgres-job`
+    services:
+      # label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres:latest
+        # service environment variables
+        # `POSTGRES_HOST` is `postgres`
+        env:
+          # required
+          POSTGRES_PASSWORD: 1234
+          # optional (defaults to `5432`)
+          POSTGRES_PORT: 5432
+          # optional (defaults to `postgres`)
+          POSTGRES_USER: Adrian
+        ports:
+          - 5432:5432
+        # set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
+#       - name: Install PostgreSQL client
+#         run: |
+#           apt-get update
+#           apt-get install --yes postgresql-client
+
+#       # queries database with postgres client
+#       - name: Query database
+#         run: psql -h postgres -d postgres_db -U postgres_user -c 'SELECT 1;'
+#         env:
+#           # postgress password is required; alternatively, you can run:
+#           # `PGPASSWORD=postgres_password psql ...`
+#           PGPASSWORD: postgres_password
+
       - uses: actions/checkout@v2
 
       - name: Setup .NET Core SDK
@@ -32,5 +72,22 @@ jobs:
       - name: Build
         run: dotnet build -c Release  --no-restore
       
+      - name: run migrations
+        run: |
+          export PATH="$PATH:/github/home/.dotnet/tools"
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
+          dir
+          cd Warbud.Users.Infrastructure
+          dotnet ef migrations add Init -s ../Warbud.Users.Api -c WriteDbContext
+          dotnet ef database update -s ../Warbud.Users.Api -c WriteDbContext
+      
       - name: Test
         run: dotnet test -c Release
+        env:
+          # The hostname used to communicate with the PostgreSQL service container
+          POSTGRES_HOST: postgres
+          # The default PostgreSQL port
+          POSTGRES_PORT: 5432
+          POSTGRES_PASSWORD: 1234
+          POSTGRES_USER: Adrian
