@@ -11,7 +11,7 @@ on:
 jobs:
   build_and_test:
     # containers must run in Linux based operating systems
-    runs-on: [windows-latest]
+    runs-on: ubuntu-latest
     # Docker Hub image that `postgres-job` executes in
     container: node:latest
 
