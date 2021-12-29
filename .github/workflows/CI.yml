@@ -75,6 +75,7 @@ jobs:
       
       - name: run migrations
         run: |
+          export PATH="$PATH:/github/home/.dotnet/tools"
           dotnet tool install --global dotnet-ef
           dotnet tool restore
           dir
