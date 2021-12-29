@@ -75,6 +75,8 @@ jobs:
       
       - name: run migrations
         run: |
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
           dir
           cd Warbud.Users.Infrastructure
           dotnet ef migrations add Init -s ../Warbud.Users.Api -c WriteDbContext        
