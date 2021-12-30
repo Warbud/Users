@@ -24,7 +24,6 @@ namespace Warbud.Users.Application.Commands.WarbudClaim.Handlers
         {
             var (userId, appId, projectId, name) = command;
             
-            //TODO: Move to validators
             if (await _claimReadService.ExistsByKeyAsync(userId, appId, projectId))
             {
                 throw new ClaimAlreadyInUseException(userId, appId, projectId);

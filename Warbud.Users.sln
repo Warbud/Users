@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Shared", "..\Warbud.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Shared.Abstraction", "..\Warbud.Shared\Warbud.Shared.Abstraction\Warbud.Shared.Abstraction.csproj", "{1B2DD9A7-14B3-4C15-B1C5-128F7880B779}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warbud.Users.IntegrationTests", "Warbud.Users.IntegrationTests\Warbud.Users.IntegrationTests.csproj", "{2D263B94-762C-4252-8CD1-9294B1A45AA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{1B2DD9A7-14B3-4C15-B1C5-128F7880B779}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B2DD9A7-14B3-4C15-B1C5-128F7880B779}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B2DD9A7-14B3-4C15-B1C5-128F7880B779}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D263B94-762C-4252-8CD1-9294B1A45AA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D263B94-762C-4252-8CD1-9294B1A45AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D263B94-762C-4252-8CD1-9294B1A45AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D263B94-762C-4252-8CD1-9294B1A45AA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

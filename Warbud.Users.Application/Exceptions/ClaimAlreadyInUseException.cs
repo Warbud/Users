@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Net;
 using Warbud.Shared.Abstraction.Exceptions;
 
 namespace Warbud.Users.Application.Exceptions
 {
     public class ClaimAlreadyInUseException : WarbudException
     {
+        public override HttpStatusCode StatusCode => HttpStatusCode.BadRequest;
+
         public int AppName { get; }
         public int ProjectName { get; }
         public Guid UserId { get; }

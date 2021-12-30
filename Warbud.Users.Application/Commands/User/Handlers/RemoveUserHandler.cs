@@ -5,7 +5,7 @@ using Warbud.Users.Domain.Repositories;
 
 namespace Warbud.Users.Application.Commands.User.Handlers
 {
-    public class RemoveUserHandler :ICommandHandler<RemoveUser>
+    public class RemoveUserHandler : ICommandHandler<RemoveUser>
     {
         private readonly IUserRepository _repository;
 

@@ -6,6 +6,7 @@ using Warbud.Users.Api.Validators;
 using Warbud.Users.Application.Commands.User;
 using Warbud.Users.Application.Commands.WarbudApp;
 using Warbud.Users.Application.Commands.WarbudClaim;
+using Warbud.Users.Application.DTO;
 
 namespace Warbud.Users.Api.Installers
 {
@@ -14,7 +15,8 @@ namespace Warbud.Users.Api.Installers
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddFluentValidation();
-            services.AddTransient<IValidator<AddUser>, UserInputValidator>();
+            services.AddTransient<IValidator<AddUser>, AddUserValidator>();
+            services.AddTransient<IValidator<PatchUserDtoAggregate>, PatchUserDtoAggregateValidator>();
             services.AddTransient<IValidator<AddWarbudApp>, WarbudAppInputValidator>();
             services.AddTransient<IValidator<AddWarbudClaim>, WarbudClaimInputValidator>();
         }

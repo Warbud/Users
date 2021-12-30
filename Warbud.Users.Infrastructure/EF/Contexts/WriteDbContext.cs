@@ -37,7 +37,7 @@ namespace Warbud.Users.Infrastructure.EF.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("warbud.users");
+            if (Database.IsRelational()) modelBuilder.HasDefaultSchema("warbud.users");
 
             var configuration = new WriteConfiguration();
             modelBuilder.ApplyConfiguration<User>(configuration);

@@ -23,7 +23,6 @@ namespace Warbud.Users.Application.Commands.WarbudApp.Handlers
         public async Task HandleAsync(AddWarbudApp command)
         {
             var (appName, moduleName) = command;
-            //TODO: Move to validators
             if (await _readService.ExistsAsync(appName, moduleName))
             {
                 throw new ModuleAlreadyInUseException(appName, moduleName);

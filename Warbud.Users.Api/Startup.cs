@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Warbud.Shared;
 using Warbud.Shared.Abstraction.Constants;
+using Warbud.Shared.Abstraction.Interfaces;
 using Warbud.Users.Api.Authentication;
 using Warbud.Users.Api.Services;
 using Warbud.Users.Application;
@@ -30,23 +31,43 @@ namespace Warbud.Users.Api
             services.AddInfrastructure(_config);
             services.AddControllers();
             
+            services
+                .AddControllersWithViews()
+                .AddNewtonsoftJson();
+            
             services.AddScoped<IUserContextService, UserContextService>();
             services.AddHttpContextAccessor();
             
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(Policy.Name.VerifiedUser,
-                    policy => policy.Requirements.Add(new VerifiedUserRequirement()));
+                options.AddPolicy(Policy.Name.VerifiedUser, policy =>
+                    policy.RequireClaim(Claim.Name.Role, Role.Name.Admin, Role.Name.BasicUser));
                 options.AddPolicy(Policy.Name.AdminOrOwner,
                     policy => policy.Requirements.Add(new AdminOrOwnerRequirement()));
             });
-            
-            services.AddSingleton<IAuthorizationHandler, VerifiedUserRequirementsHandler>();
             services.AddSingleton<IAuthorizationHandler, AdminOrOwnerRequirementHandler>();
-            
+
             services.AddSwaggerGen(c =>
             {
+                
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Warbud.Api", Version = "v1"});
+                c.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "bearerAuth" }
+                        },
+                        System.Array.Empty<string>()
+                    }
+                });
             });
 
             
@@ -58,20 +79,17 @@ namespace Warbud.Users.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "Warbud.Api v1"));
             }
+            
             app.UseShared();
 
-            app.UseRouting();
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Warbud.Api v1"));
-            
             app.UseAuthentication();
+            app.UseRouting();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
-            //app.UseGraphQLVoyager();
         }
     }
 }

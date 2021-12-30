@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Warbud.Shared.Abstraction.Commands;
 using Warbud.Users.Application.Exceptions;
@@ -13,19 +14,24 @@ namespace Warbud.Users.Application.Commands.User.Handlers
         private readonly IUserRepository _repository;
         private readonly IUserFactory _factory;
         private readonly IIdService _idService;
+        private readonly IValidator<AddUser> _addUserValidator;
         private readonly IPasswordHasher<Domain.Entities.User> _passwordHasher;
         public AddUserHandler(IUserRepository repository,
             IUserFactory factory,
-            IIdService idService, IPasswordHasher<Domain.Entities.User> passwordHasher)
+            IIdService idService, 
+            IPasswordHasher<Domain.Entities.User> passwordHasher, 
+            IValidator<AddUser> addUserValidator)
         {
             _repository = repository;
             _factory = factory;
             _idService = idService;
             _passwordHasher = passwordHasher;
+            _addUserValidator = addUserValidator;
         }
         
         public async Task HandleAsync(AddUser command)
         {
+            await _addUserValidator.ValidateAndThrowAsync(command);
             var (email, password,firstName, lastName, _) = command;
             
             var userIdDto = await _idService.GenerateIdAsync();

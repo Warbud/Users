@@ -1,5 +1,4 @@
-﻿using HotChocolate.AspNetCore.Authorization;
-using Warbud.Shared.Abstraction;
+﻿using Warbud.Shared.Abstraction;
 using Warbud.Shared.Interfaces;
 using Warbud.Users.Domain.Constants;
 using Warbud.Users.Domain.ValueObjects;
@@ -28,8 +27,6 @@ namespace Warbud.Users.Domain.Entities
         public UserId Id { get; init; }
         public UserName FirstName { get; private set; }
         public UserName LastName { get; private set; }
-        
-        [Authorize(Roles = new [] {Shared.Abstraction.Constants.Role.Name.Admin})]
         public Role Role { get; private set; } = Role.Viewer;
         
         public void SetPassword(Password password)

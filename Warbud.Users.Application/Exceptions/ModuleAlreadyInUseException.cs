@@ -1,9 +1,12 @@
-﻿using Warbud.Shared.Abstraction.Exceptions;
+﻿using System.Net;
+using Warbud.Shared.Abstraction.Exceptions;
 
 namespace Warbud.Users.Application.Exceptions
 {
     public class ModuleAlreadyInUseException : WarbudException
     {
+        public override HttpStatusCode StatusCode => HttpStatusCode.BadRequest;
+
         public string AppName { get; }
         public string ModuleName { get; }
 

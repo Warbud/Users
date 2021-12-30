@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentValidation;
-using HotChocolate.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Warbud.Shared.Abstraction.Commands;
 using Warbud.Shared.Abstraction.Constants;
@@ -12,6 +12,8 @@ using Warbud.Users.Application.Queries.WarbudClaim;
 
 namespace Warbud.Users.Api.Controllers
 {
+    
+    [Authorize(Roles = Role.Name.Admin)]
     public class ClaimController : BaseController
     {
         private readonly IValidator<AddWarbudClaim> _claimValidator;
@@ -27,7 +29,6 @@ namespace Warbud.Users.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = new []{ Role.Name.Admin})]
         public async Task<ActionResult> AddClaimAsync([FromBody] AddWarbudClaim command)
         {
             await _claimValidator.ValidateAsync(command);
@@ -36,7 +37,6 @@ namespace Warbud.Users.Api.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = new []{Role.Name.Admin})]
         public async Task<ActionResult> UpdateClaimAsync([FromBody] UpdateWarbudClaim command)
         {
             await _commandDispatcher.DispatchAsync(command);
@@ -44,7 +44,6 @@ namespace Warbud.Users.Api.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = new []{ Role.Name.Admin})]
         public async Task<ActionResult> RemoveClaimAsync([FromBody] RemoveWarbudClaim command)
         {
             await _commandDispatcher.DispatchAsync(command);
@@ -68,7 +67,6 @@ namespace Warbud.Users.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = new[] {Role.Name.Admin})]
         public  ActionResult<IEnumerable<string>> GetClaimValues()
         {
             var result =  Claim.Value.GetValueList();
