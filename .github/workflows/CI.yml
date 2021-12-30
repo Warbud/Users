@@ -80,7 +80,8 @@ jobs:
           dotnet tool restore
           dir
           cd Warbud.Users.Infrastructure
-          dotnet ef migrations add Init -s ../Warbud.Users.Api -c WriteDbContext        
+          dotnet ef migrations add Init -s ../Warbud.Users.Api -c WriteDbContext
+          dotnet ef database update -s ../Warbud.Users -c WriteDbContext
       
       - name: Test
         run: dotnet test -c Release
