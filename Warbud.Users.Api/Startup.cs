@@ -50,7 +50,7 @@ namespace Warbud.Users.Api
             services.AddSwaggerGen(c =>
             {
                 
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Warbud.Api", Version = "v1"});
+                c.SwaggerDoc("v0.0.1", new OpenApiInfo {Title = "Warbud.Api", Version = "v0.0.1"});
                 c.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.Http,
@@ -80,7 +80,7 @@ namespace Warbud.Users.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "Warbud.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("v0.0.1/swagger.json", "Warbud.Api v0.0.1"));
             }
             
             app.UseShared();

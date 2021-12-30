@@ -3,3 +3,6 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+Warbud.Users.Infrastructure/Migrations/20211217115344_Init.cs
+Warbud.Users.Infrastructure/Migrations/20211217115344_Init.Designer.cs
+Warbud.Users.Infrastructure/Migrations/WriteDbContextModelSnapshot.cs
