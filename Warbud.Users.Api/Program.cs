@@ -19,7 +19,7 @@ namespace Warbud.Users.Api
                     try
                     {
                          var port = UseUrlsConfiguration.Configure()
-                        .SetConfigPath((@"C:\WEBSITES\Warbud\ports.json")
+                        .SetConfigPath(@"C:\WEBSITES\Warbud\ports.json")
                         .GetPort("Identity");
                         webBuilder.UseUrls($"http://localhost:{port.ToString()}");
                     }
