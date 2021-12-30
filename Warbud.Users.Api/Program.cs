@@ -16,10 +16,18 @@ namespace Warbud.Users.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    //var port = UseUrlsConfiguration.Configure()
-                    //    .SetConfigPath("C:/Users/afranczak/source/repos/Nairda015/Warbud/ports.json")
-                    //    .GetPort("Identity");
-                    webBuilder.UseUrls($"http://localhost:{1500 /*port.ToString()*/}");
+                    try
+                    {
+                         var port = UseUrlsConfiguration.Configure()
+                        .SetConfigPath(@"C:\WEBSITES\Warbud\ports.json")
+                        .GetPort("Identity");
+                        webBuilder.UseUrls($"http://localhost:{port.ToString()}");
+                    }
+                    catch (System.Exception)
+                    {
+                        webBuilder.UseUrls("http://localhost:1500");
+                    }
+                    
                 });
     }
 }
