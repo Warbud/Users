@@ -31,7 +31,6 @@ jobs:
           # optional (defaults to `postgres`)
           POSTGRES_USER: Adrian
         ports:
-          # maps tcp port 5432 on service container to the host
           - 5432:5432
         # set health checks to wait until postgres has started
         options: >-
@@ -87,7 +86,7 @@ jobs:
         run: dotnet test -c Release
         env:
           # The hostname used to communicate with the PostgreSQL service container
-          POSTGRES_HOST: localhost
+          POSTGRES_HOST: postgres
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
           POSTGRES_PASSWORD: 1234
