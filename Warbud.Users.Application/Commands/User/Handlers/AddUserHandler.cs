@@ -18,7 +18,9 @@ namespace Warbud.Users.Application.Commands.User.Handlers
         private readonly IPasswordHasher<Domain.Entities.User> _passwordHasher;
         public AddUserHandler(IUserRepository repository,
             IUserFactory factory,
-            IIdService idService, IPasswordHasher<Domain.Entities.User> passwordHasher, IValidator<AddUser> addUserValidator)
+            IIdService idService, 
+            IPasswordHasher<Domain.Entities.User> passwordHasher, 
+            IValidator<AddUser> addUserValidator)
         {
             _repository = repository;
             _factory = factory;

@@ -29,7 +29,7 @@ namespace Warbud.Users.Api.Controllers
         public async Task<ActionResult> AddUserAsync([FromBody] AddUser command)
         {
             await _commandDispatcher.DispatchAsync(command);
-            return Ok();
+            return NoContent();
         }
 
         [HttpPatch("{id:guid}")]
@@ -38,7 +38,7 @@ namespace Warbud.Users.Api.Controllers
             [FromBody] JsonPatchDocument<PatchUserDto> patchDoc)
         {
             await _commandDispatcher.DispatchAsync(new PatchUser(id, patchDoc));
-            return Ok();
+            return NoContent();
         }
 
         [HttpPut]
@@ -46,7 +46,7 @@ namespace Warbud.Users.Api.Controllers
         public async Task<ActionResult> UpdateUserRoleAsync([FromBody] UpdateUserRole command)
         {
             await _commandDispatcher.DispatchAsync(command);
-            return Ok();
+            return NoContent();
         }
 
         [HttpDelete("{id:guid}")]
@@ -59,7 +59,7 @@ namespace Warbud.Users.Api.Controllers
         
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<UserDto>> Me()
+        public async Task<ActionResult<UserDto>> MeAsync()
         {
             var result = await _queryDispatcher.QueryAsync(new QueryMe());
             return OkOrNotFound(result);
@@ -67,7 +67,7 @@ namespace Warbud.Users.Api.Controllers
 
         [HttpGet]
         [Authorize(Policy = Policy.Name.VerifiedUser)]
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsersAsync()
         {
             var result = await _queryDispatcher.QueryAsync(new GetUsers());
             return OkOrNotFound(result);
@@ -75,14 +75,14 @@ namespace Warbud.Users.Api.Controllers
 
         [HttpGet("{id:guid}")]
         [Authorize(Policy = Policy.Name.VerifiedUser)]
-        public async Task<ActionResult<UserDto>> GetUser([FromRoute] GetUserById query)
+        public async Task<ActionResult<UserDto>> GetUserAsync([FromRoute] GetUserById query)
         {
             var result = await _queryDispatcher.QueryAsync(query);
             return OkOrNotFound(result);
         }
         
         [HttpPost]
-        public async Task<ActionResult<string>> Login([FromBody] LoginUser query)
+        public async Task<ActionResult<string>> LoginAsync([FromBody] LoginUser query)
         {
             var result = await _queryDispatcher.QueryAsync(query);
             if (result is null)
@@ -94,10 +94,10 @@ namespace Warbud.Users.Api.Controllers
         
         [HttpPut]
         [Authorize(Policy = Policy.Name.AdminOrOwner)]
-        public async Task<ActionResult> ChangePassword([FromBody] ChangePassword command)
+        public async Task<ActionResult> ChangePasswordAsync([FromBody] ChangePassword command)
         {
             await _commandDispatcher.DispatchAsync(command);
-            return Ok();
+            return NoContent();
         }
     }
 }

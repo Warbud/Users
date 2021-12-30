@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -30,10 +31,15 @@ namespace Warbud.Users.IntegrationTests
             var scopeFactory = factory.Services.GetRequiredService<IServiceScopeFactory>();
             using var scope = scopeFactory.CreateScope();
             var writeDbContext = scope.ServiceProvider.GetRequiredService<WriteDbContext>();
+            var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher<User>>();
+            
             var existingUser = await writeDbContext.Users.FindAsync(user.Id);
             if (existingUser is null)
             {
-                await writeDbContext.Users.AddAsync(user);
+                var hashPassword = passwordHasher.HashPassword(user,user.Password);
+                var userCopy = new User(user.Id, user.Email, hashPassword, user.FirstName, user.LastName);
+                
+                await writeDbContext.Users.AddAsync(userCopy);
                 await writeDbContext.SaveChangesAsync();
             }
         }

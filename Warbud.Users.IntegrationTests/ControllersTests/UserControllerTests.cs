@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Warbud.Users.Api;
 using Warbud.Users.Application.Commands.User;
 using Warbud.Users.Application.DTO;
+using Warbud.Users.Domain.Constants;
 using Warbud.Users.Domain.Entities;
 using Warbud.Users.IntegrationTests.Configuration;
 using Warbud.Users.IntegrationTests.Configuration.User;
@@ -94,7 +95,7 @@ namespace Warbud.Users.IntegrationTests.ControllersTests
             var response = await _client.PostAsync("User/AddUser/", addUser.ToJsonContent());
 
             // Assert
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
 
         [Fact]
@@ -125,7 +126,7 @@ namespace Warbud.Users.IntegrationTests.ControllersTests
         [Theory]
         [InlineData("Adrian", "Franczak")]
         [InlineData("Cezary", "Kępka", "cezary.kepka@warbud.pl")]
-        public async Task UpdateUser_ShouldReturnOk(string? firstName = null, string? lastName = null, string? email = null)
+        public async Task PatchUser_ShouldReturnNoContent(string? firstName = null, string? lastName = null, string? email = null)
         {
             // Arrange
             await _factory.SeedUser(User);
@@ -138,13 +139,13 @@ namespace Warbud.Users.IntegrationTests.ControllersTests
             var response = await _client.PatchAsync($"/User/PatchUser/{Id}", patchDoc.ToJsonPatchContent());
             
             // Assert
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
         [Theory]
         [InlineData("cezary.kepka@warbud.pl", "Cezary")]
         [InlineData( "Franczak", "franczak@gmail.com")]
         [InlineData]
-        public async Task UpdateUser_ShouldReturnBadRequest_ForInvalidData(string? firstName = null, string? lastName = null, string? email = null)
+        public async Task PatchUser_ShouldReturnBadRequest_ForInvalidData(string? firstName = null, string? lastName = null, string? email = null)
         {
             // Arrange
             await _factory.SeedUser(User);
@@ -158,6 +159,34 @@ namespace Warbud.Users.IntegrationTests.ControllersTests
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        }
+
+        [Fact]
+        public async Task UpdateUserRole_ShouldReturnNoContent()
+        {
+            await _factory.SeedUser(User);
+            var command = new UpdateUserRole(User.Id, Role.BasicUser);
+            // Act
+            var response = await _client.PutAsync("/User/UpdateUserRole/", command.ToJsonPatchContent());
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+            
+        [Fact]
+        public async Task ChangePassword_ShouldReturnNoContent()
+        {
+            // Arrange
+            await _factory.ClearUsers();
+            await _factory.SeedUser(User);
+
+            // Act
+            var newPassword = "Hello123";
+            var command = new ChangePassword(User.Id, User.Password, newPassword, newPassword);
+            var response = await _client.PutAsync("/User/ChangePassword/", command.ToJsonPatchContent());
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
     }
 }
