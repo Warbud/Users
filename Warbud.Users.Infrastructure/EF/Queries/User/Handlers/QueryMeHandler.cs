@@ -13,10 +13,10 @@ namespace Warbud.Users.Infrastructure.EF.Queries.User.Handlers
 {
     internal class QueryMeHandler : IQueryHandler<QueryMe, UserDto>
     {
-        private readonly IUserContextService _userContextService;
+        private readonly ICurrentUserService _userContextService;
         private readonly DbSet<UserReadModel> _users;
 
-        public QueryMeHandler(IUserContextService userContextService, ReadDbContext context)
+        public QueryMeHandler(ICurrentUserService userContextService, ReadDbContext context)
         {
             _userContextService = userContextService;
             _users = context.Users;

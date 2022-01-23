@@ -40,25 +40,13 @@ jobs:
           --health-retries 5
 
     steps:
-#       - name: Install PostgreSQL client
-#         run: |
-#           apt-get update
-#           apt-get install --yes postgresql-client
-
-#       # queries database with postgres client
-#       - name: Query database
-#         run: psql -h postgres -d postgres_db -U postgres_user -c 'SELECT 1;'
-#         env:
-#           # postgress password is required; alternatively, you can run:
-#           # `PGPASSWORD=postgres_password psql ...`
-#           PGPASSWORD: postgres_password
 
       - uses: actions/checkout@v2
 
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.9.0
         with:
-          dotnet-version: 5.0.x 
+          dotnet-version: 6.0.x 
       
       - name: Clone shared repository
         run: | 
@@ -68,6 +56,13 @@ jobs:
       
       - name: Restore Packages
         run: dotnet restore
+
+      - name: edit connection string
+        uses: benday-inc/edit-dbconnstr-in-appsettings@main
+        with:
+          pathtosettingsfile: '${{ github.workspace }}/Warbud.Users.Api/appsettings.json'
+          name: "ConnectionString"
+          connectionstring: "User ID = postgres; Password = admin; Server = postgres; Port = 5432; Database = WarbudDb; Integrated Security = true; Pooling = true;"
       
       - name: Build
         run: dotnet build -c Release  --no-restore
