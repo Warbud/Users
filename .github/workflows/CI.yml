@@ -75,7 +75,7 @@ jobs:
           dotnet tool restore
           dir
           cd Warbud.Users.Infrastructure
-          dotnet ef migrations add Testes -s ../Warbud.Users.Api -c WriteDbContext
+          dotnet ef migrations add InitTestes -s ../Warbud.Users.Api -c WriteDbContext
           dotnet ef database update -s ../Warbud.Users.Api -c WriteDbContext
       
       - name: Test
