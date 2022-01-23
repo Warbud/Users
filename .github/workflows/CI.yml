@@ -1,4 +1,4 @@
-name: CI .NET 5
+name: CI .NET 6
 
 on:
   push:
@@ -25,11 +25,11 @@ jobs:
         # `POSTGRES_HOST` is `postgres`
         env:
           # required
-          POSTGRES_PASSWORD: 1234
+          POSTGRES_PASSWORD: admin
           # optional (defaults to `5432`)
           POSTGRES_PORT: 5432
           # optional (defaults to `postgres`)
-          POSTGRES_USER: Adrian
+          POSTGRES_USER: postgres
         ports:
           - 5432:5432
         # set health checks to wait until postgres has started
@@ -40,25 +40,21 @@ jobs:
           --health-retries 5
 
     steps:
-#       - name: Install PostgreSQL client
-#         run: |
-#           apt-get update
-#           apt-get install --yes postgresql-client
-
-#       # queries database with postgres client
-#       - name: Query database
-#         run: psql -h postgres -d postgres_db -U postgres_user -c 'SELECT 1;'
-#         env:
-#           # postgress password is required; alternatively, you can run:
-#           # `PGPASSWORD=postgres_password psql ...`
-#           PGPASSWORD: postgres_password
 
       - uses: actions/checkout@v2
 
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.9.0
         with:
-          dotnet-version: 5.0.x 
+          dotnet-version: 6.0.x 
+      
+      - name: Edit ConnectionString
+        run: |           
+          cd Warbud.Users.Api
+          sed -i 's/localhost;/postgres;/g' appsettings.json
+          cat appsettings.json
+          sed -i 's/localhost;/postgres;/g' appsettings.Development.json
+          cat appsettings.Development.json
       
       - name: Clone shared repository
         run: | 
@@ -79,7 +75,7 @@ jobs:
           dotnet tool restore
           dir
           cd Warbud.Users.Infrastructure
-          dotnet ef migrations add Init -s ../Warbud.Users.Api -c WriteDbContext
+          dotnet ef migrations add InitTestes -s ../Warbud.Users.Api -c WriteDbContext
           dotnet ef database update -s ../Warbud.Users.Api -c WriteDbContext
       
       - name: Test
@@ -89,5 +85,5 @@ jobs:
           POSTGRES_HOST: postgres
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
-          POSTGRES_PASSWORD: 1234
-          POSTGRES_USER: Adrian
+          POSTGRES_PASSWORD: admin
+          POSTGRES_USER: postgres
