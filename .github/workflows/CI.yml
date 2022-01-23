@@ -53,7 +53,7 @@ jobs:
           cd Warbud.Users.Api
           sed -i 's/localhost;/postgres;/g' appsettings.json
           cat appsettings.json
-          sed -i 's/localhost;/postgres/g' appsettings.Development.json
+          sed -i 's/localhost;/postgres;/g' appsettings.Development.json
           cat appsettings.Development.json
       
       - name: Clone shared repository
