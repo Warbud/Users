@@ -67,7 +67,7 @@ jobs:
       - name: Print ConnectionString
         run: | 
           dir
-          cd Warbud.Users.Api'
+          cd Warbud.Users.Api
           dir
           cat .\appsettings.json
       
