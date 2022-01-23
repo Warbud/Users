@@ -25,11 +25,11 @@ jobs:
         # `POSTGRES_HOST` is `postgres`
         env:
           # required
-          POSTGRES_PASSWORD: 1234
+          POSTGRES_PASSWORD: admin
           # optional (defaults to `5432`)
           POSTGRES_PORT: 5432
           # optional (defaults to `postgres`)
-          POSTGRES_USER: Adrian
+          POSTGRES_USER: postgres
         ports:
           - 5432:5432
         # set health checks to wait until postgres has started
@@ -48,6 +48,14 @@ jobs:
         with:
           dotnet-version: 6.0.x 
       
+      - name: Edit ConnectionString
+        run: |           
+          cd Warbud.Users.Api
+          sed 's/localhost;/postgres;/g' appsettings.json
+          cat appsettings.json
+          sed 's/localhost;/postgres/g' appsettings.Development.json
+          cat appsettings.Development.json
+      
       - name: Clone shared repository
         run: | 
           cd ..
@@ -56,27 +64,6 @@ jobs:
       
       - name: Restore Packages
         run: dotnet restore
-
-      - name: edit connection string
-        uses: benday-inc/edit-dbconnstr-in-appsettings@main
-        with:
-          pathtosettingsfile: '${{ github.workspace }}/Warbud.Users.Api/appsettings.json'
-          name: "ConnectionString"
-          connectionstring: "User ID = Adrian; Password = 1234 ; Server = postgres; Port = 5432; Database = WarbudDb; Integrated Security = true; Pooling = true;"
-      
-      - name: edit connection string development
-        uses: benday-inc/edit-dbconnstr-in-appsettings@main
-        with:
-          pathtosettingsfile: '${{ github.workspace }}/Warbud.Users.Api/appsettings.Development.json'
-          name: "ConnectionString"
-          connectionstring: "User ID = Adrian; Password = 1234 ; Server = postgres; Port = 5432; Database = WarbudDb; Integrated Security = true; Pooling = true;"
-          
-      - name: Print ConnectionString
-        run: | 
-          dir
-          cd Warbud.Users.Api
-          dir
-          cat appsettings.Development.json
       
       - name: Build
         run: dotnet build -c Release  --no-restore
@@ -98,5 +85,5 @@ jobs:
           POSTGRES_HOST: postgres
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
-          POSTGRES_PASSWORD: 1234
-          POSTGRES_USER: Adrian
+          POSTGRES_PASSWORD: admin
+          POSTGRES_USER: postgres
