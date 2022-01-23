@@ -60,6 +60,13 @@ jobs:
       - name: edit connection string
         uses: benday-inc/edit-dbconnstr-in-appsettings@main
         with:
+          pathtosettingsfile: '${{ github.workspace }}/Warbud.Users.Api/appsettings.json'
+          name: "ConnectionString"
+          connectionstring: "User ID = Adrian; Password = 1234 ; Server = postgres; Port = 5432; Database = WarbudDb; Integrated Security = true; Pooling = true;"
+      
+      - name: edit connection string development
+        uses: benday-inc/edit-dbconnstr-in-appsettings@main
+        with:
           pathtosettingsfile: '${{ github.workspace }}/Warbud.Users.Api/appsettings.Development.json'
           name: "ConnectionString"
           connectionstring: "User ID = Adrian; Password = 1234 ; Server = postgres; Port = 5432; Database = WarbudDb; Integrated Security = true; Pooling = true;"
