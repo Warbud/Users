@@ -8,8 +8,8 @@ using Microsoft.OpenApi.Models;
 using Warbud.Shared;
 using Warbud.Shared.Abstraction.Constants;
 using Warbud.Shared.Abstraction.Interfaces;
+using Warbud.Shared.Services;
 using Warbud.Users.Api.Authentication;
-using Warbud.Users.Api.Services;
 using Warbud.Users.Application;
 using Warbud.Users.Infrastructure;
 using Warbud.Users.Api.Installers;
@@ -35,7 +35,7 @@ namespace Warbud.Users.Api
                 .AddControllersWithViews()
                 .AddNewtonsoftJson();
             
-            services.AddScoped<IUserContextService, UserContextService>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddHttpContextAccessor();
             
             services.AddAuthorization(options =>

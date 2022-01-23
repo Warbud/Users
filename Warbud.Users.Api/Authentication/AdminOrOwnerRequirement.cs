@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Warbud.Shared.Abstraction.Constants;
-using Warbud.Shared.Abstraction.Interfaces;
-using Warbud.Users.Api.Services;
 using Warbud.Users.Domain.Entities;
 
 namespace Warbud.Users.Api.Authentication
