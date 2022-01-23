@@ -1,4 +1,4 @@
-name: CI .NET 5
+name: CI .NET 6
 
 on:
   push:
@@ -74,7 +74,7 @@ jobs:
           dotnet tool restore
           dir
           cd Warbud.Users.Infrastructure
-          dotnet ef migrations add Init -s ../Warbud.Users.Api -c WriteDbContext
+          dotnet ef migrations add Testes -s ../Warbud.Users.Api -c WriteDbContext
           dotnet ef database update -s ../Warbud.Users.Api -c WriteDbContext
       
       - name: Test
