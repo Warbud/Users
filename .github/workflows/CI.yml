@@ -63,6 +63,12 @@ jobs:
           pathtosettingsfile: '${{ github.workspace }}/Warbud.Users.Api/appsettings.json'
           name: "ConnectionString"
           connectionstring: "User ID = postgres; Password = admin; Server = postgres; Port = 5432; Database = WarbudDb; Integrated Security = true; Pooling = true;"
+          
+      - name: Print ConnectionString
+        run: | 
+          cd '${{ github.workspace }}/Warbud.Users.Api
+          dir
+          cat .\appsettings.json
       
       - name: Build
         run: dotnet build -c Release  --no-restore
