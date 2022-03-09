@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Warbud.Shared\Warbud.Shared\Warbud.Shared.csproj" />
+      <ProjectReference Include="..\..\Shared\Shared\Shared.csproj" />
       <ProjectReference Include="..\Warbud.Users.Domain\Warbud.Users.Domain.csproj" />
     </ItemGroup>
 
