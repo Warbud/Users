@@ -6,3 +6,10 @@ riderModule.iml
 Warbud.Users.Infrastructure/Migrations/20211217115344_Init.cs
 Warbud.Users.Infrastructure/Migrations/20211217115344_Init.Designer.cs
 Warbud.Users.Infrastructure/Migrations/WriteDbContextModelSnapshot.cs
+.idea/.idea.Warbud.Users/.idea/.name
+.idea/.idea.Warbud.Users/.idea/aws.xml
+.idea/.idea.Warbud.Users/.idea/encodings.xml
+.idea/.idea.Warbud.Users/.idea/indexLayout.xml
+.idea/.idea.Warbud.Users/.idea/vcs.xml
+Warbud.Users.Infrastructure/Migrations/20220309140509_Init.cs
+Warbud.Users.Infrastructure/Migrations/20220309140509_Init.Designer.cs

@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Warbud.Shared\Warbud.Shared.Abstraction\Warbud.Shared.Abstraction.csproj" />
+      <PackageReference Include="Warbud.Shared.Abstraction" Version="1.0.0" />
     </ItemGroup>
 
 </Project>
