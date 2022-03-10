@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Warbud.Shared.Configurations;
 
 namespace Warbud.Users.Api
 {
@@ -16,18 +15,7 @@ namespace Warbud.Users.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    try
-                    {
-                         var port = UseUrlsConfiguration.Configure()
-                        .SetConfigPath(@"C:\WEBSITES\Warbud\ports.json")
-                        .GetPort("Identity");
-                        webBuilder.UseUrls($"http://localhost:{port.ToString()}");
-                    }
-                    catch (System.Exception)
-                    {
-                        webBuilder.UseUrls("http://localhost:1500");
-                    }
-                    
+                    webBuilder.UseUrls("http://localhost:2000");
                 });
     }
 }
